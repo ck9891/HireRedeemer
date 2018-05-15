@@ -641,22 +641,4 @@ add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
 function load_dashicons_front_end() {
 wp_enqueue_style( 'dashicons' );
 }
-add_filter( 'private_title_format', 'my_private_title_format' );
-add_filter( 'protected_title_format', 'my_private_title_format' );
-function my_private_title_format( $format ) {
-    global $post;
-    $label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
-    $o = '<form action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">
-    ' . __( "To view this protected post, enter the password below:" ) . '
-    <label for="' . $label . '">' . __( "Password:" ) . ' </label><input name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" /><input type="submit" name="Submit" value="' . esc_attr__( "Submit" ) . '" />
-    </form>
-    ';
-    return $o;
-}
 
-function my_excerpt_password_form( $excerpt ) {
-    if ( post_password_required() )
-        $excerpt = get_the_password_form();
-    return $excerpt;
-}
-add_filter( 'the_excerpt', 'my_excerpt_password_form' );

@@ -17,17 +17,21 @@ function my_password_form() {
 	$o = '
 	<div class="row">
 	<div class="col-50">
-	<h2>Job Board Login</h2>
+	<h2>Job Seeker Login</h2>
+
 	<br>
 	<form action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">
 	' . __( "To view the job board, enter the password below:<br>" ) . '
 	<label for="' . $label . '">' . __( "Password:" ) . ' </label><input name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" /><input type="submit" name="Submit" value="' . esc_attr__( "Submit" ) . '" />
 	</form>
+	<br>
+	<p>Need to access the job board? Email <a href="mailto:celc@redeemer.ca" target="_blank">celc@redeemer.ca</a> to request the password.</p>
 	</div>
 	<div class="col-50">
 	<h2>Employer Login</h2>';
 	echo $o;
 	wp_login_form();
+	echo '<a href="' . wp_lostpassword_url() . '" title="Lost Password">Forgot Password?</a>';
 
 	echo "<h2>Register Employer Account</h2>
 	<p>To register a new employer account and submit your first job <a href='/post-a-job/'>click here</a>.</p>
@@ -41,4 +45,7 @@ function jobboard_default_page() {
   return $redirect;
 }
 add_filter('login_redirect', 'jobboard_default_page');
+
+
+
 ?>
